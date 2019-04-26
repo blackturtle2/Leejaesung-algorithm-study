@@ -37,3 +37,29 @@ print("RESULT: ", solution(5), "\n") // 3
 
 
 // TODO: "에라토스테네스의 체"를 이용해서 효율적인 솔루션 찾아보기
+func newsolution(_ n: Int) -> Int {
+    var arr = Array(2...n)
+
+    var i = 0
+    arr.forEach { (a) in
+        if a != 0 {
+            print("a:", a)
+            for b in Array(2...a) {
+                if b != a && a % b == 0 {
+                    var newIndex = i
+                    for c in arr[i]...arr.last! {
+                        if c % a == 0 {arr[newIndex] = 0; newIndex += 1 }
+                    }
+
+                    break
+                }
+            }
+        }
+        i += 1
+    }
+
+    return arr.reduce(0, { $1 != 0 ? $0 + 1 : $0 }) //if $1 != 0 { $0 + 1 } else { $0 }
+}
+
+print("RESULT: ", newsolution(10), "\n") // 4
+print("RESULT: ", newsolution(5), "\n") // 3
